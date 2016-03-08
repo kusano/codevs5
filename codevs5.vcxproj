@@ -147,6 +147,7 @@
     <ClCompile Include="state.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ai.h" />
     <ClInclude Include="state.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
