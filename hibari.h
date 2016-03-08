@@ -3,7 +3,7 @@
 #include "ai.h"
 #include "xorshift.h"
 
-class Hibari: AI
+class Hibari: public AI
 {
     Xorshift rand;
 public:
