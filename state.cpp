@@ -11,33 +11,36 @@ void State::load(istream *s)
     *s>>w>>h;
     assert(w==W && h==H);
 
-    for (int y=0; y<H; y++)
-    for (int x=0; x<W; x++)
-        *s>>map[y][x];
+    for (int i=0; i<W*H; i++)
+        *s>>map[i];
 
     int n;
     *s>>n;
     assert(n==2);
-    for (Pos &n: ninja)
+    for (int &n: ninja)
     {
         int id, x, y;
         *s>>id>>y>>x;
-        n = Pos(x, y);
+        n = y*W+x;
     }
 
     *s>>n;
     dog.resize(n);
-    for (Pos &d: dog)
+    for (int &d: dog)
     {
         int id, x, y;
         *s>>id>>y>>x;;
-        d = Pos(x, y);
+        d = y*W+x;
     }
 
     *s>>n;
     soul.resize(n);
-    for (Pos &sl: soul)
-        *s>>sl.y>>sl.x;
+    for (int &sl: soul)
+    {
+        int x, y;
+        *s>>y>>x;
+        sl = y*W+x;
+    }
 
     for (int &sk: skill)
         *s>>sk;

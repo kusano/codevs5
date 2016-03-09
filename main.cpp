@@ -49,7 +49,7 @@ int main(int argc, char **argv)
         {
             cout<<move.skill;
             if (1<=move.skill && move.skill<=6)
-                cout<<" "<<move.x<<move.y;
+                cout<<" "<<move.pos/W<<move.pos%W;
             if (move.skill==7)
                 cout<<" "<<move.id;
             cout<<endl;

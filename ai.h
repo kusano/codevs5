@@ -6,7 +6,7 @@
 struct Move
 {
     int skill;  //  -1: none
-    int x, y;
+    int pos;
     int id;
     char move[2][4];
 };
