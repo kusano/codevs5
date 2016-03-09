@@ -2,10 +2,7 @@
 
 #include <vector>
 #include <istream>
-
-const static int W = 17;
-const static int H = 14;
-const static int SN = 8;
+#include "base.h"
 
 struct State
 {

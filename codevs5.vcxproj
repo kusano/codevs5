@@ -150,6 +150,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ai.h" />
+    <ClInclude Include="base.h" />
     <ClInclude Include="hibari.h" />
     <ClInclude Include="state.h" />
     <ClInclude Include="xorshift.h" />
