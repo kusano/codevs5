@@ -1,7 +1,7 @@
 #pragma once
 
-const static int W = 17;
-const static int H = 14;
+const static int W = 14;
+const static int H = 17;
 const static int A = W*H;
 const static int SN = 8;
 

@@ -8,7 +8,7 @@ void State::load(istream *s)
     *s>>point;
 
     int w, h;
-    *s>>w>>h;
+    *s>>h>>w;
     assert(w==W && h==H);
 
     for (int i=0; i<A; i++)
