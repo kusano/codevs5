@@ -13,8 +13,10 @@ struct State
     std::vector<int> soul;
     int skill[SN];
 
+    int dist[A];
+
     void load(std::istream *s);
+    void updateDist();
 };
 
 std::istream &operator>>(std::istream &s, State &state);
-

@@ -7,3 +7,5 @@ const static int SN = 8;
 
 const static int dir[5] = {-W, -1, +1, +W,  0};
 const static char *dirs =  "U" "L" "R" "D" "N";
+
+const static int INF = 999;

@@ -1,5 +1,6 @@
 #include "state.h"
 #include <cassert>
+#include <functional>
 
 using namespace std;
 
@@ -44,6 +45,26 @@ void State::load(istream *s)
 
     for (int &sk: skill)
         *s>>sk;
+}
+
+void State::updateDist()
+{
+    for (int i=0; i<A; i++)
+        dist[i] = INF;
+
+    function<void (int, int)> BT = [&](int p, int d)
+    {
+        if (dist[p]<=d)
+            return;
+
+        dist[p] = d;
+        for (int r=0; r<4; r++)
+            if (map[p+dir[r]] == '_')
+                BT(p+dir[r], d+1);
+    };
+
+    BT(ninja[0], 0);
+    BT(ninja[1], 0);
 }
 
 istream &operator>>(istream &s, State &state)
