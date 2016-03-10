@@ -7,7 +7,7 @@
 struct State
 {
     int point;
-    char map[W*H];
+    char map[A];
     int ninja[2];
     std::vector<int> dog;
     std::vector<int> soul;

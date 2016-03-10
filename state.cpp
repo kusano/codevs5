@@ -11,7 +11,7 @@ void State::load(istream *s)
     *s>>w>>h;
     assert(w==W && h==H);
 
-    for (int i=0; i<W*H; i++)
+    for (int i=0; i<A; i++)
         *s>>map[i];
 
     int n;
