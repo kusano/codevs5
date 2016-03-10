@@ -1,6 +1,8 @@
 #include "state.h"
 #include <cassert>
 #include <functional>
+#include <sstream>
+#include <iomanip>
 
 using namespace std;
 
@@ -65,6 +67,53 @@ void State::updateDist()
 
     BT(ninja[0], 0);
     BT(ninja[1], 0);
+}
+
+string State::dump() const
+{
+    stringstream ss;
+
+    ss<<point<<endl;
+
+    char m[A];
+    for (int i=0; i<A; i++)
+        m[i] = ' ';
+    //  wall
+    for (int i=0; i<A; i++)
+        if (map[i]=='W')
+            m[i] = '#';
+    //  soul
+    for (int s: soul)
+        m[s] = '.';
+    //  rock
+    for (int i=0; i<A; i++)
+        if (map[i]=='O')
+            m[i] = 'O';
+    //  dog
+    for (int d: dog)
+        m[d] = '*';
+    //  ninja
+    m[ninja[0]] = m[ninja[1]] = '@';
+
+    for (int y=0; y<H; y++)
+    {
+        for (int x=0; x<W; x++)
+            ss<<m[y*W+x];
+        ss<<endl;
+    }
+
+    for (int s: skill)
+        ss<<" "<<s;
+    ss<<endl;
+
+    for (int y=0; y<H; y++)
+    {
+        for (int x=0; x<W; x++)
+            ss<<setw(4)<<dist[y*W+x];
+        ss<<endl;
+    }
+
+    return ss.str();
 }
 
 istream &operator>>(istream &s, State &state)

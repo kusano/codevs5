@@ -17,6 +17,7 @@ struct State
 
     void load(std::istream *s);
     void updateDist();
+    std::string dump() const;
 };
 
 std::istream &operator>>(std::istream &s, State &state);
