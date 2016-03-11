@@ -55,8 +55,8 @@ void State::load(istream *s)
 
 bool State::canMove(int id, int d) const
 {
-    int p1 = ninja[id]+d;
-    int p2 = ninja[id]+d+d;
+    int p1 = ninja[id]+dir[d];
+    int p2 = ninja[id]+dir[d]*2;
     return map[p1]=='_' ||
         map[p1]=='O' &&
         map[p2]=='_' &&
@@ -67,17 +67,18 @@ bool State::canMove(int id, int d) const
 void State::move(int id, int d)
 {
     int p = ninja[id];
+    int t = dir[d];
 
-    if (map[p+d]=='O')
+    if (map[p+t]=='O')
     {
-        map[p+d+d] = 'O';
-        map[p+d] = '_';
+        map[p+t+t] = 'O';
+        map[p+t] = '_';
     }
 
-    point += int(soul[p+d])*2;
-    soul[p+d] = false;
+    point += int(soul[p+t])*2;
+    soul[p+t] = false;
 
-    ninja[id] += d;
+    ninja[id] += t;
 }
 
 void State::updateDist()
