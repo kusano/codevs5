@@ -16,6 +16,8 @@ struct State
     int dist[A];
 
     void load(std::istream *s);
+    bool canMove(int id, int d) const;
+    void move(int id, int d);
     void updateDist();
     void moveDog();
     std::string dump() const;

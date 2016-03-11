@@ -53,6 +53,33 @@ void State::load(istream *s)
         *s>>sk;
 }
 
+bool State::canMove(int id, int d) const
+{
+    int p1 = ninja[id]+d;
+    int p2 = ninja[id]+d+d;
+    return map[p1]=='_' ||
+        map[p1]=='O' &&
+        map[p2]=='_' &&
+        dog[p2]==-1 &&
+        p2!=ninja[1-id];
+}
+
+void State::move(int id, int d)
+{
+    int p = ninja[id];
+
+    if (map[p+d]=='O')
+    {
+        map[p+d+d] = 'O';
+        map[p+d] = '_';
+    }
+
+    point += int(soul[p+d])*2;
+    soul[p+d] = false;
+
+    ninja[id] += d;
+}
+
 void State::updateDist()
 {
     for (int i=0; i<A; i++)
