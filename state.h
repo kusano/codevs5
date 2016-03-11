@@ -9,8 +9,8 @@ struct State
     int point;
     char map[A];
     int ninja[2];
-    std::vector<int> dog;
-    std::vector<int> soul;
+    int dog[A];     //  -1: none
+    bool soul[A];
     int skill[SN];
 
     int dist[A];

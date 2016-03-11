@@ -27,22 +27,24 @@ void State::load(istream *s)
         n = y*W+x;
     }
 
+    for (int i=0; i<A; i++)
+        dog[i] = -1;
     *s>>n;
-    dog.resize(n);
-    for (int &d: dog)
+    for (int i=0; i<n; i++)
     {
         int id, x, y;
         *s>>id>>y>>x;;
-        d = y*W+x;
+        dog[y*W+x] = id;
     }
 
+    for (int i=0; i<A; i++)
+        soul[i] = false;
     *s>>n;
-    soul.resize(n);
-    for (int &sl: soul)
+    for (int i=0; i<n; i++)
     {
         int x, y;
         *s>>y>>x;
-        sl = y*W+x;
+        soul[y*W+x] = true;
     }
 
     for (int &sk: skill)
@@ -83,15 +85,17 @@ string State::dump() const
         if (map[i]=='W')
             m[i] = '#';
     //  soul
-    for (int s: soul)
-        m[s] = '.';
+    for (int i=0; i<A; i++)
+        if (soul[i])
+            m[i] = '.';
     //  rock
     for (int i=0; i<A; i++)
         if (map[i]=='O')
             m[i] = 'O';
     //  dog
-    for (int d: dog)
-        m[d] = '*';
+    for (int i=0; i<A; i++)
+        if (dog[i]>=0)
+            m[i] = '*';
     //  ninja
     m[ninja[0]] = m[ninja[1]] = '@';
 
