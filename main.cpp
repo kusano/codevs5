@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cassert>
 #include "hibari.h"
+#include "asuka.h"
 
 using namespace std;
 
@@ -8,6 +9,7 @@ int main(int argc, char **argv)
 {
     AI *ai = nullptr;
     Hibari hibari;
+    Asuka asuka;
 
     if (argc != 2)
     {
@@ -17,6 +19,8 @@ int main(int argc, char **argv)
 
     if (argv[1] == hibari.getName())
         ai = &hibari;
+    else if (argv[1] == asuka.getName())
+        ai = &asuka;
     else
     {
         cerr<<"AI not found"<<endl;
