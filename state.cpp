@@ -128,6 +128,11 @@ void State::moveDog()
     }
 }
 
+bool State::checkCapture() const
+{
+    return dog[ninja[0]]>=0 || dog[ninja[1]]>=0;
+}
+
 void State::push()
 {
     assert(logNum<BUF);

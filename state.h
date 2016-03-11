@@ -29,6 +29,7 @@ struct State
     void move(int id, int d);
     void updateDist();
     void moveDog();
+    bool checkCapture() const;
     void push();
     void pop();
     std::string dump() const;
