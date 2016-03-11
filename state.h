@@ -17,6 +17,7 @@ struct State
 
     void load(std::istream *s);
     void updateDist();
+    void moveDog();
     std::string dump() const;
 };
 

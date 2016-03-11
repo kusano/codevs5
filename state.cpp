@@ -3,6 +3,8 @@
 #include <functional>
 #include <sstream>
 #include <iomanip>
+#include <utility>
+#include <algorithm>
 
 using namespace std;
 
@@ -69,6 +71,34 @@ void State::updateDist()
 
     BT(ninja[0], 0);
     BT(ninja[1], 0);
+}
+
+void State::moveDog()
+{
+    pair<pair<int,int>,int> tmp[A];
+    int n = 0;
+
+    for (int i=0; i<A; i++)
+        if (dog[i]>=0)
+            tmp[n++] = make_pair(make_pair(dist[i], dog[i]), i);
+    sort(tmp, tmp+n);
+
+    for (int i=0; i<n; i++)
+    {
+        int p = tmp[i].second;
+        for (int d=0; d<4; d++)
+        {
+            int t = p+dir[d];
+            if (map[t]=='_' &&
+                dog[t]==-1 &&
+                dist[t]==dist[p]-1)
+            {
+                dog[t] = dog[p];
+                dog[p] = -1;
+                break;
+            }
+        }
+    }
 }
 
 string State::dump() const
