@@ -6,6 +6,8 @@
 
 struct State
 {
+    const static int BUF = 16;
+
     int point;
     char map[A];
     int ninja[2];
@@ -15,11 +17,20 @@ struct State
 
     int dist[A];
 
+    int logNum = 0;
+    int logPoint[BUF];
+    char logMap[BUF][A];
+    int logNinja[BUF][2];
+    int logDog[BUF][A];
+    bool logSoul[BUF][A];
+
     void load(std::istream *s);
     bool canMove(int id, int d) const;
     void move(int id, int d);
     void updateDist();
     void moveDog();
+    void push();
+    void pop();
     std::string dump() const;
 };
 

@@ -128,6 +128,34 @@ void State::moveDog()
     }
 }
 
+void State::push()
+{
+    assert(logNum<BUF);
+
+    logPoint[logNum] = point;
+    memcpy(logMap[logNum], map, sizeof map);
+    logNinja[logNum][0] = ninja[0];
+    logNinja[logNum][1] = ninja[1];
+    memcpy(logDog[logNum], dog, sizeof dog);
+    memcpy(logSoul[logNum], soul, sizeof soul);
+
+    logNum++;
+}
+
+void State::pop()
+{
+    logNum--;
+
+    assert(logNum>=0);
+
+    point = logPoint[logNum];
+    memcpy(map, logMap[logNum], sizeof map);
+    ninja[0] = logNinja[logNum][0];
+    ninja[1] = logNinja[logNum][1];
+    memcpy(dog, logDog[logNum], sizeof dog);
+    memcpy(soul, logSoul[logNum], sizeof soul);
+}
+
 string State::dump() const
 {
     stringstream ss;
