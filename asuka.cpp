@@ -29,7 +29,7 @@ Move Asuka::think(State state[2], int turn, int time)
                     {
                         state[0].move(1, d3);
 
-                        state[0].updateDist();
+                        state[0].updateDistNinja();
                         state[0].moveDog();
 
                         int s = 0;

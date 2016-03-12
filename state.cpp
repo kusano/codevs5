@@ -81,17 +81,17 @@ void State::move(int id, int d)
     ninja[id] += t;
 }
 
-void State::updateDist()
+void State::updateDistNinja()
 {
     for (int i=0; i<A; i++)
-        dist[i] = INF;
+        distNinja[i] = INF;
 
     function<void (int, int)> BT = [&](int p, int d)
     {
-        if (dist[p]<=d)
+        if (distNinja[p]<=d)
             return;
 
-        dist[p] = d;
+        distNinja[p] = d;
         for (int r=0; r<4; r++)
             if (map[p+dir[r]] == '_')
                 BT(p+dir[r], d+1);
@@ -101,6 +101,48 @@ void State::updateDist()
     BT(ninja[1], 0);
 }
 
+void State::updateDistDog()
+{
+    for (int i=0; i<A; i++)
+        distDog[i] = INF;
+
+    function<void (int, int)> BT = [&](int p, int d)
+    {
+        if (distDog[p]<=d)
+            return;
+
+        distDog[p] = d;
+        for (int r=0; r<4; r++)
+            if (map[p+dir[r]] == '_')
+                BT(p+dir[r], d+1);
+    };
+
+    for (int i=0; i<A; i++)
+        if (dog[i]>=0)
+            BT(i, 0);
+}
+
+void State::updateDistSoul()
+{
+    for (int i=0; i<A; i++)
+        distSoul[i] = INF;
+
+    function<void (int, int)> BT = [&](int p, int d)
+    {
+        if (distSoul[p]<=d)
+            return;
+
+        distSoul[p] = d;
+        for (int r=0; r<4; r++)
+            if (map[p+dir[r]] == '_')
+                BT(p+dir[r], d+1);
+    };
+
+    for (int i=0; i<A; i++)
+        if (soul[i] && map[i]=='_')
+            BT(i, 0);
+}
+
 void State::moveDog()
 {
     pair<pair<int,int>,int> tmp[A];
@@ -108,7 +150,7 @@ void State::moveDog()
 
     for (int i=0; i<A; i++)
         if (dog[i]>=0)
-            tmp[n++] = make_pair(make_pair(dist[i], dog[i]), i);
+            tmp[n++] = make_pair(make_pair(distNinja[i], dog[i]), i);
     sort(tmp, tmp+n);
 
     for (int i=0; i<n; i++)
@@ -119,7 +161,7 @@ void State::moveDog()
             int t = p+dir[d];
             if (map[t]=='_' &&
                 dog[t]==-1 &&
-                dist[t]==dist[p]-1)
+                distNinja[t]==distNinja[p]-1)
             {
                 dog[t] = dog[p];
                 dog[p] = -1;
@@ -204,7 +246,21 @@ string State::dump() const
     for (int y=0; y<H; y++)
     {
         for (int x=0; x<W; x++)
-            ss<<setw(4)<<dist[y*W+x];
+            ss<<setw(4)<<distNinja[y*W+x];
+        ss<<endl;
+    }
+
+    for (int y=0; y<H; y++)
+    {
+        for (int x=0; x<W; x++)
+            ss<<setw(4)<<distDog[y*W+x];
+        ss<<endl;
+    }
+
+    for (int y=0; y<H; y++)
+    {
+        for (int x=0; x<W; x++)
+            ss<<setw(4)<<distSoul[y*W+x];
         ss<<endl;
     }
 

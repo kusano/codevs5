@@ -15,7 +15,9 @@ struct State
     bool soul[A];
     int skill[SN];
 
-    int dist[A];
+    int distNinja[A];
+    int distDog[A];
+    int distSoul[A];
 
     int logNum = 0;
     int logPoint[BUF];
@@ -27,7 +29,9 @@ struct State
     void load(std::istream *s);
     bool canMove(int id, int d) const;
     void move(int id, int d);
-    void updateDist();
+    void updateDistNinja();
+    void updateDistDog();
+    void updateDistSoul();
     void moveDog();
     bool checkCapture() const;
     void push();
