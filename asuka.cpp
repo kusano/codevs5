@@ -31,12 +31,16 @@ Move Asuka::think(State state[2], int turn, int time)
 
                         state[0].updateDistNinja();
                         state[0].moveDog();
+                        state[0].updateDistDog();
+                        state[0].updateDistSoul();
 
                         int s = 0;
-                        s += state[0].point*100;
-                        s += rand.rand()%100;
+                        s += state[0].point*10000;
+                        s -= state[0].distSoul[state[0].ninja[0]]*100;
+                        s -= state[0].distSoul[state[0].ninja[1]]*100;
+                        s += rand.rand()%16;
                         if (state[0].checkCapture())
-                            s = -9999;
+                            s = -99999;
 
                         if (s>score)
                         {
