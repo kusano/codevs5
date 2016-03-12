@@ -113,7 +113,7 @@ void State::updateDistDog()
 
         distDog[p] = d;
         for (int r=0; r<4; r++)
-            if (map[p+dir[r]] == '_')
+            if (map[p+dir[r]]=='_')
                 BT(p+dir[r], d+1);
     };
 
@@ -134,7 +134,8 @@ void State::updateDistSoul()
 
         distSoul[p] = d;
         for (int r=0; r<4; r++)
-            if (map[p+dir[r]] == '_')
+            if (map[p+dir[r]]=='_' &&
+                dog[p+dir[r]]==-1)
                 BT(p+dir[r], d+1);
     };
 
