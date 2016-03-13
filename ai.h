@@ -3,14 +3,6 @@
 #include "state.h"
 #include <string>
 
-struct Action
-{
-    int skill;  //  -1: none
-    int pos;
-    int id;
-    char move[2][4];
-};
-
 class AI
 {
 public:

@@ -6,6 +6,14 @@
 
 typedef unsigned long long Hash;
 
+struct Action
+{
+    int skill;  //  -1: none
+    int pos;
+    int id;
+    char move[2][4];
+};
+
 struct MoveHist
 {
     Hash hash;
