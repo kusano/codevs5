@@ -60,7 +60,7 @@ int main(int argc, char **argv)
             if (STONE_S<=action.skill.id && action.skill.id<=COPY_E)
                 cout<<" "<<action.skill.pos/W<<action.skill.pos%W;
             if (action.skill.id==SLASH)
-                cout<<" "<<action.skill.id;
+                cout<<" "<<action.skill.ninja;
             cout<<endl;
         }
         cout<<action.move[0]<<endl;

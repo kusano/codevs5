@@ -24,9 +24,10 @@ struct Skill
     SkillId id;
     int pos;
     int ninja;
+    int cost;
 
-    Skill(SkillId id=NONE, int pos=0, int ninja=0)
-        :id(id), pos(pos), ninja(ninja)
+    Skill(SkillId id=NONE, int pos=0, int ninja=0, int cost=0)
+        :id(id), pos(pos), ninja(ninja), cost(cost)
     {}
 };
 
@@ -47,6 +48,8 @@ struct HistMove
 
 struct HistSpell
 {
+    Hash hash;
+    int dogId[8];
 };
 
 struct State
@@ -83,7 +86,7 @@ struct State
     void move(int id, int d, HistMove *hist=nullptr);
     void undoMove(int id, int d, const HistMove &hist);
     void move(int id, const char *m);
-    void spell(const Skill &skill, HistSpell *hist=nullptr);
+    void spell(const Skill &skill, HistSpell *hist);
     void undoSpell(const Skill &skill, const HistSpell &hist);
     void updateDistNinja();
     void updateDistDog();

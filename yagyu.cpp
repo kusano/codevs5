@@ -33,6 +33,17 @@ Action Yagyu::think(int cost[SN], State state[2], int turn, int time)
             skillCand.resize(1);
             skillCand[0] = Skill();
 
+            //  ”Ep‚Í[‚³0‚Å‚Ì‚ÝŽg—p‚·‚é
+            if (depth==0)
+            {
+                //  ‰ñ“]Ža
+                if (s.point>=cost[SLASH])
+                {
+                    skillCand.push_back(Skill(SLASH, 0, 0, cost[SLASH]));
+                    skillCand.push_back(Skill(SLASH, 0, 1, cost[SLASH]));
+                }
+            }
+
             HistSpell histSpell;
             HistMove histMove[6];
 
@@ -61,6 +72,7 @@ Action Yagyu::think(int cost[SN], State state[2], int turn, int time)
                 n.score = score(s);
                 for (int i=0; i<depth; i++)
                     n.action[i] = node.action[i];
+                n.action[depth].skill = skill;
                 n.action[depth].move[0][0] = dirs[d00];
                 n.action[depth].move[0][1] = dirs[d01];
                 n.action[depth].move[0][2] = '\0';

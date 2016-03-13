@@ -131,13 +131,54 @@ void State::undoMove(int id, int d, const HistMove &hist)
     ninja[id] -= t;
 }
 
-void State::spell(const Skill &skill, HistSpell *hist/*=nullptr*/)
+void State::spell(const Skill &skill, HistSpell *hist)
 {
-    assert(skill.id==NONE);
+    hist->hash = hash;
+
+    point -= skill.cost;
+
+    int p;
+
+    switch (skill.id)
+    {
+    case NONE:
+        break;
+    case SLASH:
+        p = ninja[skill.ninja];
+        for (int d=0; d<8; d++)
+        {
+            int t = p+dir8[d];
+            hist->dogId[d] = dog[t];
+            if (dog[t]>=0)
+                hash ^= hashDog[t];
+            dog[t] = -1;
+        }
+        break;
+    default:
+        assert(false);
+    }
 }
 
 void State::undoSpell(const Skill &skill, const HistSpell &hist)
 {
+    hash = hist.hash;
+
+    point += skill.cost;
+
+    int p;
+
+    switch (skill.id)
+    {
+    case NONE:
+        break;
+    case SLASH:
+        p = ninja[skill.ninja];
+        for (int d=0; d<8; d++)
+            dog[p+dir8[d]] = hist.dogId[d];
+        break;
+    default:
+        assert(false);
+    }
 }
 
 void State::updateDistNinja()
@@ -242,7 +283,7 @@ bool State::checkCapture() const
 
 void State::push()
 {
-    assert(logNum<BUF);
+    assert(histNum<BUF);
 
     histPoint[histNum] = point;
     memcpy(histMap[histNum], map, sizeof map);
