@@ -34,13 +34,17 @@ Action Yagyu::think(State state[2], int turn, int time)
             for (int d01=0; d01<5; d01++) if (s.canMove(0, d01)) { s.push(), s.move(0, d01);
             for (int d10=0; d10<5; d10++) if (s.canMove(1, d10)) { s.push(), s.move(1, d10);
             for (int d11=0; d11<5; d11++) if (s.canMove(1, d11)) { s.push(), s.move(1, d11);
-            if (hash.count(s.hash)==0)
             {
+                if (hash.count(s.hash)>0)
+                    goto end;
                 hash.insert(s.hash);
 
                 s.updateDistNinja();
                 s.updateDistSoul();
                 s.moveDog();
+
+                if (s.checkCapture())
+                    goto end;
 
                 beam.push_back(Node());
                 Node &n = beam.back();
@@ -55,6 +59,8 @@ Action Yagyu::think(State state[2], int turn, int time)
                 n.action[depth].move[1][0] = dirs[d10];
                 n.action[depth].move[1][1] = dirs[d11];
                 n.action[depth].move[1][2] = '\0';
+
+                end:;
             }
             s.pop(); }
             s.pop(); }
@@ -62,6 +68,24 @@ Action Yagyu::think(State state[2], int turn, int time)
             s.pop(); }
 
             s.pop();
+        }
+
+        //  Ç±ÇÃê[Ç≥Ç‹Ç≈ê∂Ç´écÇÍÇ»Ç¢Ç»ÇÁÇŒÅAíºëOÇÃç≈ëPéËÇâÇ∆Ç∑ÇÈ
+        if (beam.empty())
+        {
+            beam.push_back(Node());
+            beam[0].score = -1;
+
+            if (depth==0)
+            {
+                beam[0].action[0].skill = -1;
+                beam[0].action[0].move[0][0] = '\0';
+                beam[0].action[0].move[1][0] = '\0';
+            }
+            else
+                beam[0].action[0] = beamPre[0].action[0];
+
+            break;
         }
 
         sort(beam.begin(), beam.end());
