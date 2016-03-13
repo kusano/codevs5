@@ -207,28 +207,28 @@ void State::push()
 {
     assert(logNum<BUF);
 
-    logPoint[logNum] = point;
-    memcpy(logMap[logNum], map, sizeof map);
-    logNinja[logNum][0] = ninja[0];
-    logNinja[logNum][1] = ninja[1];
-    memcpy(logDog[logNum], dog, sizeof dog);
-    memcpy(logSoul[logNum], soul, sizeof soul);
+    histPoint[histNum] = point;
+    memcpy(histMap[histNum], map, sizeof map);
+    histNinja[histNum][0] = ninja[0];
+    histNinja[histNum][1] = ninja[1];
+    memcpy(histDog[histNum], dog, sizeof dog);
+    memcpy(histSoul[histNum], soul, sizeof soul);
 
-    logNum++;
+    histNum++;
 }
 
 void State::pop()
 {
-    logNum--;
+    histNum--;
 
-    assert(logNum>=0);
+    assert(histNum>=0);
 
-    point = logPoint[logNum];
-    memcpy(map, logMap[logNum], sizeof map);
-    ninja[0] = logNinja[logNum][0];
-    ninja[1] = logNinja[logNum][1];
-    memcpy(dog, logDog[logNum], sizeof dog);
-    memcpy(soul, logSoul[logNum], sizeof soul);
+    point = histPoint[histNum];
+    memcpy(map, histMap[histNum], sizeof map);
+    ninja[0] = histNinja[histNum][0];
+    ninja[1] = histNinja[histNum][1];
+    memcpy(dog, histDog[histNum], sizeof dog);
+    memcpy(soul, histSoul[histNum], sizeof soul);
 
     updateHash();
 }
