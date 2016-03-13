@@ -147,6 +147,7 @@
     <ClCompile Include="hibari.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="state.cpp" />
+    <ClCompile Include="state_hash.cpp" />
     <ClCompile Include="xorshift.cpp" />
     <ClCompile Include="yagyu.cpp" />
   </ItemGroup>

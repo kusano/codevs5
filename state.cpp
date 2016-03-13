@@ -51,6 +51,8 @@ void State::load(istream *s)
 
     for (int &sk: skill)
         *s>>sk;
+
+    updateHash();
 }
 
 bool State::canMove(int id, int d) const
@@ -73,12 +75,24 @@ void State::move(int id, int d)
     {
         map[p+t+t] = 'O';
         map[p+t] = '_';
+
+        hash ^= hashRock[p+t+t];
+        hash ^= hashRock[p+t];
     }
 
     point += int(soul[p+t])*2;
-    soul[p+t] = false;
+
+    if (soul[p+t])
+    {
+        soul[p+t] = false;
+
+        hash ^= hashSoul[p+t];
+    }
 
     ninja[id] += t;
+
+    hash ^= hashNinja[id][p];
+    hash ^= hashNinja[id][p+t];
 }
 
 void State::move(int id, const char *m)
@@ -174,6 +188,10 @@ void State::moveDog()
             {
                 dog[t] = dog[p];
                 dog[p] = -1;
+
+                hash ^= hashDog[t];
+                hash ^= hashDog[p];
+
                 break;
             }
         }
@@ -211,6 +229,28 @@ void State::pop()
     ninja[1] = logNinja[logNum][1];
     memcpy(dog, logDog[logNum], sizeof dog);
     memcpy(soul, logSoul[logNum], sizeof soul);
+
+    updateHash();
+}
+
+void State::updateHash()
+{
+    hash = 0LL;
+
+    for (int i=0; i<A; i++)
+    {
+        //  岩以外は位置が変化しないので岩のみ考慮する
+        if (map[i]=='O')
+            hash ^= hashRock[i];
+        //  IDは考慮しなくて良いでしょう
+        if (dog[i]>=0)
+            hash ^= hashDog[i];
+        if (soul[i])
+            hash ^= hashSoul[i];
+    }
+
+    hash ^= hashNinja[0][ninja[0]];
+    hash ^= hashNinja[1][ninja[1]];
 }
 
 string State::dump() const

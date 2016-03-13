@@ -4,9 +4,16 @@
 #include <istream>
 #include "base.h"
 
+typedef unsigned long long Hash;
+
 struct State
 {
     const static int BUF = 16;
+
+    const static Hash hashRock[A];
+    const static Hash hashNinja[2][A];
+    const static Hash hashDog[A];
+    const static Hash hashSoul[A];
 
     int point;
     char map[A];
@@ -14,6 +21,8 @@ struct State
     int dog[A];     //  -1: none
     bool soul[A];
     int skill[SN];
+
+    Hash hash;
 
     int distNinja[A];
     int distDog[A];
@@ -37,6 +46,7 @@ struct State
     bool checkCapture() const;
     void push();
     void pop();
+    void updateHash();
     std::string dump() const;
 };
 
