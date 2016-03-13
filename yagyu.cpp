@@ -89,7 +89,9 @@ Action Yagyu::think(State state[2], int turn, int time)
         }
 
         sort(beam.begin(), beam.end());
-        beam.resize(BW);
+
+        if (int(beam.size())>BW)
+            beam.resize(BW);
     }
 
     cerr<<"Score: "<<beam[0].score<<endl;
