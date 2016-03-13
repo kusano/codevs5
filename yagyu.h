@@ -3,6 +3,7 @@
 #include "ai.h"
 #include "xorshift.h"
 #include <vector>
+#include <set>
 
 class Yagyu: public AI
 {
@@ -25,6 +26,7 @@ private:
     Xorshift rand;
     std::vector<Node> beam;
     std::vector<Node> beamPre;
+    std::set<Hash> hash;
 
     long long score(const State &state);
 };
