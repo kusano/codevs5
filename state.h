@@ -38,11 +38,15 @@ struct Action
     Action() {move[0][0] = move[0][0] = '\0';}
 };
 
-struct MoveHist
+struct HistMove
 {
     Hash hash;
     bool rock;
     bool soul;
+};
+
+struct HistSpell
+{
 };
 
 struct State
@@ -76,9 +80,11 @@ struct State
 
     void load(std::istream *s);
     bool canMove(int id, int d) const;
-    void move(int id, int d, MoveHist *hist=nullptr);
-    void undo(int id, int d, const MoveHist &hist);
+    void move(int id, int d, HistMove *hist=nullptr);
+    void undoMove(int id, int d, const HistMove &hist);
     void move(int id, const char *m);
+    void spell(const Skill &skill, HistSpell *hist=nullptr);
+    void undoSpell(const Skill &skill, const HistSpell &hist);
     void updateDistNinja();
     void updateDistDog();
     void updateDistSoul();

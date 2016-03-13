@@ -27,6 +27,7 @@ private:
     std::vector<Node> beam;
     std::vector<Node> beamPre;
     std::set<Hash> hash;
+    std::vector<Skill> skillCand;
 
     long long score(const State &state);
 };

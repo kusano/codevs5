@@ -66,7 +66,7 @@ bool State::canMove(int id, int d) const
         p2!=ninja[1-id];
 }
 
-void State::move(int id, int d, MoveHist *hist/*=nullptr*/)
+void State::move(int id, int d, HistMove *hist/*=nullptr*/)
 {
     int p = ninja[id];
     int t = dir[d];
@@ -109,7 +109,7 @@ void State::move(int id, const char *m)
                 move(id, d);
 }
 
-void State::undo(int id, int d, const MoveHist &hist)
+void State::undoMove(int id, int d, const HistMove &hist)
 {
     int p = ninja[id];
     int t = dir[d];
@@ -129,6 +129,15 @@ void State::undo(int id, int d, const MoveHist &hist)
     }
 
     ninja[id] -= t;
+}
+
+void State::spell(const Skill &skill, HistSpell *hist/*=nullptr*/)
+{
+    assert(skill.id==NONE);
+}
+
+void State::undoSpell(const Skill &skill, const HistSpell &hist)
+{
 }
 
 void State::updateDistNinja()

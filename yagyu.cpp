@@ -30,12 +30,17 @@ Action Yagyu::think(State state[2], int turn, int time)
                 s.moveDog();
             }
 
-            MoveHist hist[6];
+            skillCand.resize(1);
+            skillCand[0] = Skill();
 
-            for (int d00=0; d00<5; d00++) if (s.canMove(0, d00)) { s.move(0, d00, &hist[0]);
-            for (int d01=0; d01<5; d01++) if (s.canMove(0, d01)) { s.move(0, d01, &hist[1]);
-            for (int d10=0; d10<5; d10++) if (s.canMove(1, d10)) { s.move(1, d10, &hist[3]);
-            for (int d11=0; d11<5; d11++) if (s.canMove(1, d11)) { s.move(1, d11, &hist[4]);
+            HistSpell histSpell;
+            HistMove histMove[6];
+
+            for (const Skill &skill: skillCand) { s.spell(skill, &histSpell);
+            for (int d00=0; d00<5; d00++) if (s.canMove(0, d00)) { s.move(0, d00, &histMove[0]);
+            for (int d01=0; d01<5; d01++) if (s.canMove(0, d01)) { s.move(0, d01, &histMove[1]);
+            for (int d10=0; d10<5; d10++) if (s.canMove(1, d10)) { s.move(1, d10, &histMove[3]);
+            for (int d11=0; d11<5; d11++) if (s.canMove(1, d11)) { s.move(1, d11, &histMove[4]);
             {
                 if (hash.count(s.hash)>0)
                     goto end1;
@@ -68,10 +73,11 @@ Action Yagyu::think(State state[2], int turn, int time)
 
                 end1:;
             }
-            s.undo(1, d11, hist[4]); }
-            s.undo(1, d10, hist[3]); }
-            s.undo(0, d01, hist[1]); }
-            s.undo(0, d00, hist[0]); }
+            s.undoMove(1, d11, histMove[4]); }
+            s.undoMove(1, d10, histMove[3]); }
+            s.undoMove(0, d01, histMove[1]); }
+            s.undoMove(0, d00, histMove[0]); }
+            s.undoSpell(skill, histSpell); }
 
             s.pop();
         }
