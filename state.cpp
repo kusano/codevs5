@@ -81,6 +81,14 @@ void State::move(int id, int d)
     ninja[id] += t;
 }
 
+void State::move(int id, const char *m)
+{
+    for (int i=0; m[i]!='\0'; i++)
+        for (int d=0; d<4; d++)
+            if (dirs[d]==m[i])
+                move(id, d);
+}
+
 void State::updateDistNinja()
 {
     for (int i=0; i<A; i++)

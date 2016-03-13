@@ -29,6 +29,7 @@ struct State
     void load(std::istream *s);
     bool canMove(int id, int d) const;
     void move(int id, int d);
+    void move(int id, const char *m);
     void updateDistNinja();
     void updateDistDog();
     void updateDistSoul();
