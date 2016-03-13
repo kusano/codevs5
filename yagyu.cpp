@@ -22,12 +22,23 @@ Action Yagyu::think(int cost[SN], State state[2], int turn, int time)
         {
             s.push();
 
+            int dogDist;
+
             for (int i=0; i<depth; i++)
             {
                 s.move(0, node.action[i].move[0]);
                 s.move(1, node.action[i].move[1]);
                 s.updateDistNinja();
                 s.moveDog();
+
+                //  [‚³0‚Å‚Ì”EŒ¢‚Æ‚Ì‹——£‚ðŠo‚¦‚Ä‚¨‚­
+                if (i==0)
+                {
+                    s.updateDistDog();
+                    dogDist = min(
+                        s.distDog[s.ninja[0]],
+                        s.distDog[s.ninja[1]]);
+                }
             }
 
             skillCand.resize(1);
@@ -81,10 +92,19 @@ Action Yagyu::think(int cost[SN], State state[2], int turn, int time)
                 if (s.checkCapture())
                     goto end2;
 
+                //  ”EŒ¢‚Æ‚Ì‹——£‚ðƒRƒXƒg‚ÉŽg—p‚·‚é
+                if (depth==0)
+                {
+                    s.updateDistDog();
+                    dogDist = min(
+                        s.distDog[s.ninja[0]],
+                        s.distDog[s.ninja[1]]);
+                }
+
                 beam.push_back(Node());
                 Node &n = beam.back();
 
-                n.score = score(s);
+                n.score = score(s, dogDist);
                 for (int i=0; i<depth; i++)
                     n.action[i] = node.action[i];
                 n.action[depth].skill = skill;
@@ -141,7 +161,7 @@ bool Yagyu::Node::operator<(const Node &node) const
     return score > node.score;
 }
 
-long long Yagyu::score(const State &state)
+long long Yagyu::score(const State &state, int dogDist)
 {
     if (state.checkCapture())
         return -99999999LL;
@@ -151,6 +171,11 @@ long long Yagyu::score(const State &state)
     score -= 100LL * state.distSoul[state.ninja[0]];
     score -= 100LL * state.distSoul[state.ninja[1]];
     score += rand.rand()%32 - 16;
+
+    if (dogDist==1)
+        score -= 100000LL;
+    if (dogDist==2)
+        score -= 30000LL;
 
     return score;
 }

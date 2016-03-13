@@ -29,5 +29,5 @@ private:
     std::set<Hash> hash;
     std::vector<Skill> skillCand;
 
-    long long score(const State &state);
+    long long score(const State &state, int dogDist);
 };
