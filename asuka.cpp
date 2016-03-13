@@ -1,6 +1,6 @@
 #include "asuka.h"
 
-Action Asuka::think(State state[2], int turn, int time)
+Action Asuka::think(int cost[SN], State state[2], int turn, int time)
 {
     Action action;
 

@@ -1,6 +1,6 @@
 #include "hibari.h"
 
-Action Hibari::think(State state[2], int turn, int time)
+Action Hibari::think(int cost[SN], State state[2], int turn, int time)
 {
     Action action;
 

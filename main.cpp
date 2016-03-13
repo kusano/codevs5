@@ -51,7 +51,7 @@ int main(int argc, char **argv)
         State state[2];
         cin>>state[0]>>state[1];
 
-        Action action = ai->think(state, turn, time);
+        Action action = ai->think(cost, state, turn, time);
 
         cout<<(action.skill.id==NONE ? 2 : 3)<<endl;
         if (action.skill.id!=NONE)

@@ -4,7 +4,7 @@
 
 using namespace std;
 
-Action Yagyu::think(State state[2], int turn, int time)
+Action Yagyu::think(int cost[SN], State state[2], int turn, int time)
 {
     State &s = state[0];
 
