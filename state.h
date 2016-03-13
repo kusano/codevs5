@@ -61,6 +61,7 @@ struct State
     const static Hash hashDog[A];
     const static Hash hashSoul[A];
     const static Hash hashPoint[64];
+    const static Hash hashCopy[A];
 
     int point;
     char map[A];
@@ -68,6 +69,8 @@ struct State
     int dog[A];     //  -1: none
     bool soul[A];
     int skill[SN];
+
+    int copy;       //  -1: none
 
     Hash hash;
 
@@ -81,6 +84,7 @@ struct State
     int histNinja[BUF][2];
     int histDog[BUF][A];
     bool histSoul[BUF][A];
+    int histCopy[BUF];
 
     void load(std::istream *s);
     bool canMove(int id, int d) const;

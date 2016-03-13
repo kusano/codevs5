@@ -36,6 +36,21 @@ Action Yagyu::think(int cost[SN], State state[2], int turn, int time)
             //  ”Ep‚Í[‚³0‚Å‚Ì‚ÝŽg—p‚·‚é
             if (depth==0)
             {
+                //  Ž©•ªg
+                if (s.point>=cost[COPY_S])
+                {
+                    int n = 0;
+                    for (int i=0; i<1000 && n<8; i++)
+                    {
+                        int p = rand.rand()%A;
+                        if (s.map[p]=='_')
+                        {
+                            skillCand.push_back(Skill(COPY_S, p, 0, cost[COPY_S]));
+                            n++;
+                        }
+                    }
+                }
+
                 //  ‰ñ“]Ža
                 if (s.point>=cost[SLASH])
                 {

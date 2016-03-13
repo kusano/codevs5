@@ -52,6 +52,8 @@ void State::load(istream *s)
     for (int &sk: skill)
         *s>>sk;
 
+    copy = -1;
+
     updateHash();
 }
 
@@ -147,6 +149,10 @@ void State::spell(const Skill &skill, HistSpell *hist)
     {
     case NONE:
         break;
+    case COPY_S:
+        copy = skill.pos;
+        hash ^= hashCopy[copy];
+        break;
     case SLASH:
         p = ninja[skill.ninja];
         for (int d=0; d<8; d++)
@@ -175,6 +181,9 @@ void State::undoSpell(const Skill &skill, const HistSpell &hist)
     {
     case NONE:
         break;
+    case COPY_S:
+        copy = -1;
+        break;
     case SLASH:
         p = ninja[skill.ninja];
         for (int d=0; d<8; d++)
@@ -201,8 +210,11 @@ void State::updateDistNinja()
                 BT(p+dir[r], d+1);
     };
 
-    BT(ninja[0], 0);
-    BT(ninja[1], 0);
+    if (copy==-1)
+        BT(ninja[0], 0),
+        BT(ninja[1], 0);
+    else
+        BT(copy, 0);
 }
 
 void State::updateDistDog()
@@ -278,6 +290,13 @@ void State::moveDog()
             }
         }
     }
+
+    //  Œ¢‚ÌˆÚ“®‚ªŠ®—¹‚µ‚½‚ç•ªg‚ÍÁ–Å
+    if (copy>=0)
+    {
+        hash ^= hashCopy[copy];
+        copy = -1;
+    }
 }
 
 bool State::checkCapture() const
@@ -295,6 +314,7 @@ void State::push()
     histNinja[histNum][1] = ninja[1];
     memcpy(histDog[histNum], dog, sizeof dog);
     memcpy(histSoul[histNum], soul, sizeof soul);
+    histCopy[histNum] = copy;
 
     histNum++;
 }
@@ -311,6 +331,7 @@ void State::pop()
     ninja[1] = histNinja[histNum][1];
     memcpy(dog, histDog[histNum], sizeof dog);
     memcpy(soul, histSoul[histNum], sizeof soul);
+    copy = histCopy[histNum];
 
     updateHash();
 }
@@ -335,6 +356,9 @@ void State::updateHash()
     hash ^= hashNinja[1][ninja[1]];
 
     hash ^= hashPoint[point%64];
+
+    if (copy>=0)
+        hash ^= hashCopy[copy];
 }
 
 string State::dump() const
