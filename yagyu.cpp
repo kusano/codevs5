@@ -56,7 +56,7 @@ Action Yagyu::think(State state[2], int turn, int time)
                 n.score = score(s);
                 for (int i=0; i<depth; i++)
                     n.action[i] = node.action[i];
-                n.action[depth].skill = -1;
+                n.action[depth].skill = Skill();
                 n.action[depth].move[0][0] = dirs[d00];
                 n.action[depth].move[0][1] = dirs[d01];
                 n.action[depth].move[0][2] = '\0';
@@ -85,7 +85,7 @@ Action Yagyu::think(State state[2], int turn, int time)
 
             if (depth==0)
             {
-                beam[0].action[0].skill = -1;
+                beam[0].action[0].skill = Skill();
                 beam[0].action[0].move[0][0] = '\0';
                 beam[0].action[0].move[1][0] = '\0';
             }

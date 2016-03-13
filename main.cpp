@@ -53,14 +53,14 @@ int main(int argc, char **argv)
 
         Action action = ai->think(state, turn, time);
 
-        cout<<(action.skill==-1 ? 2 : 3)<<endl;
-        if (action.skill != -1)
+        cout<<(action.skill.id==NONE ? 2 : 3)<<endl;
+        if (action.skill.id!=NONE)
         {
-            cout<<action.skill;
-            if (1<=action.skill && action.skill<=6)
-                cout<<" "<<action.pos/W<<action.pos%W;
-            if (action.skill==7)
-                cout<<" "<<action.id;
+            cout<<action.skill.id;
+            if (STONE_S<=action.skill.id && action.skill.id<=COPY_E)
+                cout<<" "<<action.skill.pos/W<<action.skill.pos%W;
+            if (action.skill.id==SLASH)
+                cout<<" "<<action.skill.id;
             cout<<endl;
         }
         cout<<action.move[0]<<endl;

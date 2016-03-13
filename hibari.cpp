@@ -4,7 +4,7 @@ Action Hibari::think(State state[2], int turn, int time)
 {
     Action action;
 
-    action.skill = -1;
+    action.skill = Skill();
 
     for (int i=0; i<2; i++)
     {

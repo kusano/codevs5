@@ -6,11 +6,33 @@
 
 typedef unsigned long long Hash;
 
+enum SkillId
+{
+    NONE        = -1,   //  –³‚µ
+    ACCEL       = 0,    //  ’´‚‘¬
+    STONE_S     = 1,    //  ©—Î
+    STONE_E     = 2,    //  “G—Î
+    THUNDER_S   = 3,    //  ©—‹Œ‚
+    THUNDER_E   = 4,    //  “G—‹Œ‚
+    COPY_S      = 5,    //  ©•ªg
+    COPY_E      = 6,    //  “G•ªg
+    SLASH       = 7,    //  ‰ñ“]a
+};
+
+struct Skill
+{
+    SkillId id;
+    int pos;
+    int ninja;
+
+    Skill(SkillId id=NONE, int pos=0, int ninja=0)
+        :id(id), pos(pos), ninja(ninja)
+    {}
+};
+
 struct Action
 {
-    int skill;  //  -1: none
-    int pos;
-    int id;
+    Skill skill;
     char move[2][4];
 };
 
