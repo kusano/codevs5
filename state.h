@@ -60,6 +60,7 @@ struct State
     const static Hash hashNinja[2][A];
     const static Hash hashDog[A];
     const static Hash hashSoul[A];
+    const static Hash hashPoint[64];
 
     int point;
     char map[A];

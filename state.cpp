@@ -89,9 +89,11 @@ void State::move(int id, int d, HistMove *hist/*=nullptr*/)
 
     if (soul[p+t])
     {
+        hash ^= hashPoint[point%64];
         point += 2;
-        soul[p+t] = false;
+        hash ^= hashPoint[point%64];
 
+        soul[p+t] = false;
         hash ^= hashSoul[p+t];
     }
 
@@ -135,7 +137,9 @@ void State::spell(const Skill &skill, HistSpell *hist)
 {
     hist->hash = hash;
 
+    hash ^= hashPoint[point%64];
     point -= skill.cost;
+    hash ^= hashPoint[point%64];
 
     int p;
 
@@ -329,6 +333,8 @@ void State::updateHash()
 
     hash ^= hashNinja[0][ninja[0]];
     hash ^= hashNinja[1][ninja[1]];
+
+    hash ^= hashPoint[point%64];
 }
 
 string State::dump() const
