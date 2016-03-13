@@ -9,7 +9,7 @@ class Yagyu: public AI
 {
 public:
     std::string getName() const override { return "Yagyu"; }
-    Move think(State state[2], int turn, int time) override;
+    Action think(State state[2], int turn, int time) override;
 
 private:
     const static int BW = 32;
@@ -18,7 +18,7 @@ private:
     struct Node
     {
         long long score;
-        Move move[BD];
+        Action action[BD];
 
         bool operator<(const Node &node) const;
     };

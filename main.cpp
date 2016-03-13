@@ -51,19 +51,19 @@ int main(int argc, char **argv)
         State state[2];
         cin>>state[0]>>state[1];
 
-        Move move = ai->think(state, turn, time);
+        Action action = ai->think(state, turn, time);
 
-        cout<<(move.skill==-1 ? 2 : 3)<<endl;
-        if (move.skill != -1)
+        cout<<(action.skill==-1 ? 2 : 3)<<endl;
+        if (action.skill != -1)
         {
-            cout<<move.skill;
-            if (1<=move.skill && move.skill<=6)
-                cout<<" "<<move.pos/W<<move.pos%W;
-            if (move.skill==7)
-                cout<<" "<<move.id;
+            cout<<action.skill;
+            if (1<=action.skill && action.skill<=6)
+                cout<<" "<<action.pos/W<<action.pos%W;
+            if (action.skill==7)
+                cout<<" "<<action.id;
             cout<<endl;
         }
-        cout<<move.move[0]<<endl;
-        cout<<move.move[1]<<endl;
+        cout<<action.move[0]<<endl;
+        cout<<action.move[1]<<endl;
     }
 }

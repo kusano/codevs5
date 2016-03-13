@@ -4,7 +4,7 @@
 
 using namespace std;
 
-Move Yagyu::think(State state[2], int turn, int time)
+Action Yagyu::think(State state[2], int turn, int time)
 {
     State &s = state[0];
 
@@ -24,8 +24,8 @@ Move Yagyu::think(State state[2], int turn, int time)
 
             for (int i=0; i<depth; i++)
             {
-                s.move(0, node.move[i].move[0]);
-                s.move(1, node.move[i].move[1]);
+                s.move(0, node.action[i].move[0]);
+                s.move(1, node.action[i].move[1]);
                 s.updateDistNinja();
                 s.moveDog();
             }
@@ -47,14 +47,14 @@ Move Yagyu::think(State state[2], int turn, int time)
 
                 n.score = score(s);
                 for (int i=0; i<depth; i++)
-                    n.move[i] = node.move[i];
-                n.move[depth].skill = -1;
-                n.move[depth].move[0][0] = dirs[d00];
-                n.move[depth].move[0][1] = dirs[d01];
-                n.move[depth].move[0][2] = '\0';
-                n.move[depth].move[1][0] = dirs[d10];
-                n.move[depth].move[1][1] = dirs[d11];
-                n.move[depth].move[1][2] = '\0';
+                    n.action[i] = node.action[i];
+                n.action[depth].skill = -1;
+                n.action[depth].move[0][0] = dirs[d00];
+                n.action[depth].move[0][1] = dirs[d01];
+                n.action[depth].move[0][2] = '\0';
+                n.action[depth].move[1][0] = dirs[d10];
+                n.action[depth].move[1][1] = dirs[d11];
+                n.action[depth].move[1][2] = '\0';
             }
             s.pop(); }
             s.pop(); }
@@ -70,7 +70,7 @@ Move Yagyu::think(State state[2], int turn, int time)
 
     cerr<<"Score: "<<beam[0].score<<endl;
 
-    return beam[0].move[0];
+    return beam[0].action[0];
 }
 
 bool Yagyu::Node::operator<(const Node &node) const

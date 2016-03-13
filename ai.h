@@ -3,7 +3,7 @@
 #include "state.h"
 #include <string>
 
-struct Move
+struct Action
 {
     int skill;  //  -1: none
     int pos;
@@ -15,5 +15,5 @@ class AI
 {
 public:
     virtual std::string getName() const = 0;
-    virtual Move think(State state[2], int turn, int time) = 0;
+    virtual Action think(State state[2], int turn, int time) = 0;
 };

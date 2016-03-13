@@ -1,12 +1,12 @@
 #include "asuka.h"
 
-Move Asuka::think(State state[2], int turn, int time)
+Action Asuka::think(State state[2], int turn, int time)
 {
-    Move move;
+    Action action;
 
-    move.skill = -1;
-    move.move[0][0] = '\0';
-    move.move[1][0] = '\0';
+    action.skill = -1;
+    action.move[0][0] = '\0';
+    action.move[1][0] = '\0';
     int score = -999999;
 
     for (int d0=0; d0<5; d0++)
@@ -45,12 +45,12 @@ Move Asuka::think(State state[2], int turn, int time)
                         if (s>score)
                         {
                             score = s;
-                            move.move[0][0] = dirs[d0];
-                            move.move[0][1] = dirs[d1];
-                            move.move[0][2] = '\0';
-                            move.move[1][0] = dirs[d2];
-                            move.move[1][1] = dirs[d3];
-                            move.move[1][2] = '\0';
+                            action.move[0][0] = dirs[d0];
+                            action.move[0][1] = dirs[d1];
+                            action.move[0][2] = '\0';
+                            action.move[1][0] = dirs[d2];
+                            action.move[1][1] = dirs[d3];
+                            action.move[1][2] = '\0';
                         }
                     }
                 }
@@ -60,5 +60,5 @@ Move Asuka::think(State state[2], int turn, int time)
         state[0].pop();
     }
 
-    return move;
+    return action;
 }
