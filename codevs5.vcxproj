@@ -148,6 +148,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="state.cpp" />
     <ClCompile Include="xorshift.cpp" />
+    <ClCompile Include="yagyu.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ai.h" />
@@ -156,6 +157,7 @@
     <ClInclude Include="hibari.h" />
     <ClInclude Include="state.h" />
     <ClInclude Include="xorshift.h" />
+    <ClInclude Include="yagyu.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
