@@ -6,6 +6,13 @@
 
 typedef unsigned long long Hash;
 
+struct MoveHist
+{
+    Hash hash;
+    bool rock;
+    bool soul;
+};
+
 struct State
 {
     const static int BUF = 16;
@@ -37,7 +44,8 @@ struct State
 
     void load(std::istream *s);
     bool canMove(int id, int d) const;
-    void move(int id, int d);
+    void move(int id, int d, MoveHist *hist=nullptr);
+    void undo(int id, int d, const MoveHist &hist);
     void move(int id, const char *m);
     void updateDistNinja();
     void updateDistDog();

@@ -66,10 +66,17 @@ bool State::canMove(int id, int d) const
         p2!=ninja[1-id];
 }
 
-void State::move(int id, int d)
+void State::move(int id, int d, MoveHist *hist/*=nullptr*/)
 {
     int p = ninja[id];
     int t = dir[d];
+
+    if (hist)
+    {
+        hist->hash = hash;
+        hist->rock = map[p+t]=='O';
+        hist->soul = soul[p+t];
+    }
 
     if (map[p+t]=='O')
     {
@@ -80,10 +87,9 @@ void State::move(int id, int d)
         hash ^= hashRock[p+t];
     }
 
-    point += int(soul[p+t])*2;
-
     if (soul[p+t])
     {
+        point += 2;
         soul[p+t] = false;
 
         hash ^= hashSoul[p+t];
@@ -101,6 +107,28 @@ void State::move(int id, const char *m)
         for (int d=0; d<4; d++)
             if (dirs[d]==m[i])
                 move(id, d);
+}
+
+void State::undo(int id, int d, const MoveHist &hist)
+{
+    int p = ninja[id];
+    int t = dir[d];
+
+    hash = hist.hash;
+
+    if (hist.rock)
+    {
+        map[p+t] = '_';
+        map[p] = 'O';
+    }
+
+    if (hist.soul)
+    {
+        point -= 2;
+        soul[p] = true;
+    }
+
+    ninja[id] -= t;
 }
 
 void State::updateDistNinja()
