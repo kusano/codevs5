@@ -4,9 +4,6 @@ Action Asuka::think(State state[2], int turn, int time)
 {
     Action action;
 
-    action.skill = Skill();
-    action.move[0][0] = '\0';
-    action.move[1][0] = '\0';
     int score = -999999;
 
     for (int d0=0; d0<5; d0++)

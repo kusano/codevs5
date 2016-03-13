@@ -34,6 +34,8 @@ struct Action
 {
     Skill skill;
     char move[2][4];
+
+    Action() {move[0][0] = move[0][0] = '\0';}
 };
 
 struct MoveHist
