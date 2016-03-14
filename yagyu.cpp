@@ -105,6 +105,10 @@ Action Yagyu::think(int cost[SN], State state[2], int turn, int time)
             for (int d12=(skill.id==ACCEL?0:4); d12<5; d12++)
                                           if (s.canMove(1, d12)) { s.move(1, d12, &histMove[5]);
             {
+                //  自分身を使用していない場合、この時点で捕縛されていれば脱出不可
+                if (s.checkCapture() && skill.id!=COPY_S)
+                    goto end1;
+
                 if (hash.count(s.hash)>0)
                     goto end1;
                 hash.insert(s.hash);
