@@ -49,9 +49,25 @@ Action Yagyu::think(int cost[SN], State state[2], int turn, int time)
             {
                 //  ’´‚‘¬
                 if (s.point>=cost[ACCEL])
-                {
                     skillCand.push_back(Skill(ACCEL, 0, 0, cost[ACCEL]));
-                }
+
+                //  ©—ÎA©—‹Œ‚
+                //for (int i=0; i<2; i++)
+                //for (int y=s.ninja[i]/W-2; y<=s.ninja[i]/W+2; y++)
+                //for (int x=s.ninja[i]%W-2; x<=s.ninja[i]%W+2; x++)
+                //if (0<=x && x<W && 0<=y && y<H)
+                //{
+                //    int p = y*W+x;
+                //    if (s.point>=cost[STONE_S] &&
+                //        s.map[i]=='_' &&
+                //        p!=s.ninja[0] && p!=s.ninja[1] &&
+                //        s.dog[i]==-1 &&
+                //        !s.soul[i])
+                //        skillCand.push_back(Skill(STONE_S, p, 0, cost[STONE_S]));
+                //    if (s.point>=cost[THUNDER_S] &&
+                //        s.map[i]=='O')
+                //        skillCand.push_back(Skill(THUNDER_S, p, 0, cost[THUNDER_S]));
+                //}
 
                 //  ©•ªg
                 if (s.point>=cost[COPY_S])

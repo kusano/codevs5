@@ -152,6 +152,14 @@ void State::spell(const Skill &skill, HistSpell *hist)
     case ACCEL:
         //  èàóùÇÕìÆÇ´ê∂ê¨ïîÇ≈çsÇ§
         break;
+    case STONE_S:
+        map[skill.pos] = 'O';
+        hash ^= hashRock[skill.pos];
+        break;
+    case THUNDER_S:
+        map[skill.pos] = '_';
+        hash ^= hashRock[skill.pos];
+        break;
     case COPY_S:
         copy = skill.pos;
         hash ^= hashCopy[copy];
@@ -185,6 +193,12 @@ void State::undoSpell(const Skill &skill, const HistSpell &hist)
     case NONE:
         break;
     case ACCEL:
+        break;
+    case STONE_S:
+        map[skill.pos] = '_';
+        break;
+    case THUNDER_S:
+        map[skill.pos] = 'O';
         break;
     case COPY_S:
         copy = -1;
