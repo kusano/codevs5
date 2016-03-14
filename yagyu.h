@@ -3,7 +3,7 @@
 #include "ai.h"
 #include "xorshift.h"
 #include <vector>
-#include <set>
+#include <unordered_set>
 
 class Yagyu: public AI
 {
@@ -26,7 +26,7 @@ private:
     Xorshift rand;
     std::vector<Node> beam;
     std::vector<Node> beamPre;
-    std::set<Hash> hash;
+    std::unordered_set<Hash> hash;
     std::vector<Skill> skillCand;
 
     long long score(const State &state, int dogDist);
