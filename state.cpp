@@ -149,6 +149,9 @@ void State::spell(const Skill &skill, HistSpell *hist)
     {
     case NONE:
         break;
+    case ACCEL:
+        //  ˆ—‚Í“®‚«¶¬•”‚Ås‚¤
+        break;
     case COPY_S:
         copy = skill.pos;
         hash ^= hashCopy[copy];
@@ -180,6 +183,8 @@ void State::undoSpell(const Skill &skill, const HistSpell &hist)
     switch (skill.id)
     {
     case NONE:
+        break;
+    case ACCEL:
         break;
     case COPY_S:
         copy = -1;

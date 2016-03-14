@@ -63,7 +63,13 @@ int main(int argc, char **argv)
                 cout<<" "<<action.skill.ninja;
             cout<<endl;
         }
-        cout<<action.move[0]<<endl;
-        cout<<action.move[1]<<endl;
+        for (char c: string(action.move[0]))
+            if (c!='N')
+                cout<<c;
+        cout<<endl;
+        for (char c: string(action.move[1]))
+            if (c!='N')
+                cout<<c;
+        cout<<endl;
     }
 }
