@@ -199,22 +199,36 @@ void State::updateDistNinja()
     for (int i=0; i<A; i++)
         distNinja[i] = INF;
 
-    function<void (int, int)> BT = [&](int p, int d)
-    {
-        if (distNinja[p]<=d)
-            return;
-
-        distNinja[p] = d;
-        for (int r=0; r<4; r++)
-            if (map[p+dir[r]] == '_')
-                BT(p+dir[r], d+1);
-    };
+    int v[A];
+    int p1 = 0;
+    int p2 = 0;
 
     if (copy==-1)
-        BT(ninja[0], 0),
-        BT(ninja[1], 0);
+    {
+        v[p2++] = ninja[0],
+        distNinja[ninja[0]] = 0;
+        if (ninja[0]!=ninja[1])
+            v[p2++] = ninja[1],
+            distNinja[ninja[1]] = 0;
+    }
     else
-        BT(copy, 0);
+    {
+        v[p2++] = copy;
+        distNinja[copy] = 0;
+    }
+
+    while (p1<p2)
+    {
+        int p = v[p1++];
+        for (int d=0; d<4; d++)
+        {
+            int t = p+dir[d];
+            if (map[t]=='_' &&
+                distNinja[t]==INF)
+                distNinja[t] = distNinja[p]+1,
+                v[p2++] = t;
+        }
+    }
 }
 
 void State::updateDistDog()
@@ -222,20 +236,27 @@ void State::updateDistDog()
     for (int i=0; i<A; i++)
         distDog[i] = INF;
 
-    function<void (int, int)> BT = [&](int p, int d)
-    {
-        if (distDog[p]<=d)
-            return;
-
-        distDog[p] = d;
-        for (int r=0; r<4; r++)
-            if (map[p+dir[r]]=='_')
-                BT(p+dir[r], d+1);
-    };
+    int v[A];
+    int p1 = 0;
+    int p2 = 0;
 
     for (int i=0; i<A; i++)
         if (dog[i]>=0)
-            BT(i, 0);
+            distDog[i] = 0,
+            v[p2++] = i;
+
+    while (p1<p2)
+    {
+        int p = v[p1++];
+        for (int d=0; d<4; d++)
+        {
+            int t = p+dir[d];
+            if (map[t]=='_' &&
+                distDog[t]==INF)
+                distDog[t] = distDog[p]+1,
+                v[p2++] = t;
+        }
+    }
 }
 
 void State::updateDistSoul()
@@ -243,21 +264,28 @@ void State::updateDistSoul()
     for (int i=0; i<A; i++)
         distSoul[i] = INF;
 
-    function<void (int, int)> BT = [&](int p, int d)
-    {
-        if (distSoul[p]<=d)
-            return;
-
-        distSoul[p] = d;
-        for (int r=0; r<4; r++)
-            if (map[p+dir[r]]=='_' &&
-                dog[p+dir[r]]==-1)
-                BT(p+dir[r], d+1);
-    };
+    int v[A];
+    int p1 = 0;
+    int p2 = 0;
 
     for (int i=0; i<A; i++)
         if (soul[i] && map[i]=='_')
-            BT(i, 0);
+            distSoul[i] = 0,
+            v[p2++] = i;
+
+    while (p1<p2)
+    {
+        int p = v[p1++];
+        for (int d=0; d<4; d++)
+        {
+            int t = p+dir[d];
+            if (map[t]=='_' &&
+                dog[t]==-1 &&
+                distSoul[t]==INF)
+                distSoul[t] = distSoul[p]+1,
+                v[p2++] = t;
+        }
+    }
 }
 
 void State::moveDog()
