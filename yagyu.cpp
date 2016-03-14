@@ -203,7 +203,7 @@ long long Yagyu::score(const State &state, int dogDist)
     score += rand.rand()%32 - 16;
 
     if (dogDist==1)
-        score -= 10000LL;
+        score -= 30000LL;
 
     return score;
 }
