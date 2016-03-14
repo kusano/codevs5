@@ -244,14 +244,18 @@ void State::updateDistNinja()
         distNinja[copy] = 0;
     }
 
+    bool f[A];
+    for (int i=0; i<A; i++)
+        f[i] = map[i]=='_' && distNinja[i]==INF;
+
     while (p1<p2)
     {
         int p = v[p1++];
         for (int d=0; d<4; d++)
         {
             int t = p+dir[d];
-            if (map[t]=='_' &&
-                distNinja[t]==INF)
+            if (f[t])
+                f[t] = false,
                 distNinja[t] = distNinja[p]+1,
                 v[p2++] = t;
         }
@@ -300,15 +304,18 @@ void State::updateDistSoul()
             distSoul[i] = 0,
             v[p2++] = i;
 
+    bool f[A];
+    for (int i=0; i<A; i++)
+        f[i] = map[i]=='_' && dog[i]==-1 && distSoul[i]==INF;
+
     while (p1<p2)
     {
         int p = v[p1++];
         for (int d=0; d<4; d++)
         {
             int t = p+dir[d];
-            if (map[t]=='_' &&
-                dog[t]==-1 &&
-                distSoul[t]==INF)
+            if (f[t])
+                f[t] = false,
                 distSoul[t] = distSoul[p]+1,
                 v[p2++] = t;
         }
