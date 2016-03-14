@@ -53,6 +53,7 @@ void State::load(istream *s)
         *s>>sk;
 
     copy = -1;
+    dogNum = 0;
 
     updateHash();
 }
@@ -97,6 +98,8 @@ void State::move(int id, int d, HistMove *hist/*=nullptr*/)
 
         soul[p+t] = false;
         hash ^= hashSoul[p+t];
+
+        dogNum--;
     }
 
     ninja[id] += t;
@@ -130,6 +133,8 @@ void State::undoMove(int id, int d, const HistMove &hist)
     {
         point -= 2;
         soul[p] = true;
+
+        dogNum++;
     }
 
     ninja[id] -= t;
@@ -171,6 +176,7 @@ void State::spell(const Skill &skill, HistSpell *hist)
             int t = p+dir8[d];
             hist->dogId[d] = dog[t];
             if (dog[t]>=0)
+                dogNum -= 2,
                 hash ^= hashDog[t];
             dog[t] = -1;
         }
@@ -206,7 +212,9 @@ void State::undoSpell(const Skill &skill, const HistSpell &hist)
     case SLASH:
         p = ninja[skill.ninja];
         for (int d=0; d<8; d++)
-            dog[p+dir8[d]] = hist.dogId[d];
+            if (hist.dogId[d]>=0)
+                dog[p+dir8[d]] = hist.dogId[d],
+                dogNum += 2;
         break;
     default:
         assert(false);
@@ -362,6 +370,7 @@ void State::push()
     memcpy(histDog[histNum], dog, sizeof dog);
     memcpy(histSoul[histNum], soul, sizeof soul);
     histCopy[histNum] = copy;
+    histDogNum[histNum] = dogNum;
 
     histNum++;
 }
@@ -379,6 +388,7 @@ void State::pop()
     memcpy(dog, histDog[histNum], sizeof dog);
     memcpy(soul, histSoul[histNum], sizeof soul);
     copy = histCopy[histNum];
+    dogNum = histDogNum[histNum];
 
     updateHash();
 }

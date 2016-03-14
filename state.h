@@ -71,6 +71,7 @@ struct State
     int skill[SN];
 
     int copy;       //  -1: none
+    int dogNum;
 
     Hash hash;
 
@@ -85,6 +86,7 @@ struct State
     int histDog[BUF][A];
     bool histSoul[BUF][A];
     int histCopy[BUF];
+    int histDogNum[BUF];
 
     void load(std::istream *s);
     bool canMove(int id, int d) const;

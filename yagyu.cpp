@@ -197,9 +197,10 @@ long long Yagyu::score(const State &state, int dogDist)
         return -99999999LL;
 
     long long score = 0LL;
-    score += 10000LL * state.point;
-    score -= 100LL * state.distSoul[state.ninja[0]];
-    score -= 100LL * state.distSoul[state.ninja[1]];
+    score +=  5000LL * state.point;
+    score -= 10000LL * state.dogNum;
+    score -=   100LL * state.distSoul[state.ninja[0]];
+    score -=   100LL * state.distSoul[state.ninja[1]];
     score += rand.rand()%32 - 16;
 
     if (dogDist==1)
