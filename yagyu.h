@@ -12,8 +12,8 @@ public:
     Action think(int cost[SN], State state[2], int turn, int time) override;
 
 private:
-    const static int BW = 1024;
-    const static int BD = 8;
+    const static int BW = 512;
+    const static int BD = 12;
 
     struct Node
     {
