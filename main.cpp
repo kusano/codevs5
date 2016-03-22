@@ -1,37 +1,14 @@
 #include <iostream>
 #include <cassert>
 #include <ctime>
-#include "hibari.h"
-#include "asuka.h"
 #include "yagyu.h"
 
 using namespace std;
 
 int main(int argc, char **argv)
 {
-    AI *ai = nullptr;
-    Hibari hibari;
-    Asuka asuka;
     Yagyu yagyu;
-
-    if (argc != 2)
-    {
-        cerr<<argv[0]<<" AI"<<endl;
-        return -1;
-    }
-
-    if (false);
-    else if (argv[1]==hibari.getName())
-        ai = &hibari;
-    else if (argv[1]==asuka.getName())
-        ai = &asuka;
-    else if (argv[1]==yagyu.getName())
-        ai = &yagyu;
-    else
-    {
-        cerr<<"AI not found"<<endl;
-        return -1;
-    }
+    AI *ai = &yagyu;
 
     cout<<ai->getName()<<endl;
 

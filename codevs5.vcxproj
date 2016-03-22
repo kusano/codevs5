@@ -147,8 +147,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="asuka.cpp" />
-    <ClCompile Include="hibari.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="state.cpp" />
     <ClCompile Include="state_hash.cpp" />
@@ -157,9 +155,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ai.h" />
-    <ClInclude Include="asuka.h" />
     <ClInclude Include="base.h" />
-    <ClInclude Include="hibari.h" />
     <ClInclude Include="state.h" />
     <ClInclude Include="xorshift.h" />
     <ClInclude Include="yagyu.h" />
