@@ -1,6 +1,5 @@
 #include <iostream>
 #include <cassert>
-#include <ctime>
 #include "yagyu.h"
 
 using namespace std;
@@ -29,8 +28,6 @@ int main(int argc, char **argv)
         State state[2];
         cin>>state[0]>>state[1];
 
-        clock_t start = clock();
-
         Action action = ai->think(cost, state, turn, time);
 
         cout<<(action.skill.id==NONE ? 2 : 3)<<endl;
@@ -51,7 +48,5 @@ int main(int argc, char **argv)
             if (c!='N')
                 cout<<c;
         cout<<endl;
-
-        cerr<<double(clock()-start)/CLOCKS_PER_SEC<<endl;
     }
 }
