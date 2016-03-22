@@ -8,7 +8,7 @@
 class Yagyu: public AI
 {
 public:
-    std::string getName() const override { return "Yagyu"; }
+    std::string getName() const override { return "DWANGO"; }
     Action think(int cost[SN], State state[2], int turn, int time) override;
 
 private:
