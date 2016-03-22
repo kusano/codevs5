@@ -1,11 +1,18 @@
 #include "yagyu.h"
 #include <algorithm>
 #include <iostream>
+#define ACCEL ACCEL_
+#include <Windows.h>
+#undef ACCEL
+
+#pragma comment(lib, "winmm.lib")
 
 using namespace std;
 
 Action Yagyu::think(int cost[SN], State state[2], int turn, int time)
 {
+    DWORD start = timeGetTime();
+
     State &s = state[0];
 
     beam.resize(1);
@@ -183,6 +190,11 @@ Action Yagyu::think(int cost[SN], State state[2], int turn, int time)
 
         if (int(beam.size())>BW)
             beam.resize(BW);
+
+        DWORD current = timeGetTime();
+        //  長くとも150ターン程度で終わるはず
+        if (current-start >= time/(300-turn)*2)
+            break;
     }
 
     cerr<<"Score: "<<beam[0].score<<endl;
